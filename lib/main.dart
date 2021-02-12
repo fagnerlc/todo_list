@@ -54,8 +54,9 @@ class _MyAppState extends State<MyApp> {
         ),
         routes: {
           '/new': (_) => ChangeNotifierProvider(
-                create: (_) => NewTaskController(
-                    repository: context.read<TodosRepository>()),
+                create: (context) => NewTaskController(
+                  repository: context.read<TodosRepository>(),
+                ),
                 child: NewTaskPage(),
               ),
         },
