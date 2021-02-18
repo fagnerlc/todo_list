@@ -3,10 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/app/database/connections.dart';
 import 'package:todo_list/app/database/database_adm_connection.dart';
-import 'package:todo_list/app/models/home/home_controller.dart';
-import 'package:todo_list/app/models/home/home_page.dart';
-import 'package:todo_list/app/models/new_task/new_task_controller.dart';
-import 'package:todo_list/app/models/new_task/new_task_page.dart';
+import 'package:todo_list/app/modules/home/home_controller.dart';
+import 'package:todo_list/app/modules/home/home_page.dart';
+import 'package:todo_list/app/modules/new_task/new_task_controller.dart';
+import 'package:todo_list/app/modules/new_task/new_task_page.dart';
 import 'package:todo_list/app/repositories/todos_repository.dart';
 
 void main() {
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routes: {
-          '/new': (_) => ChangeNotifierProvider(
+          NewTaskPage.routerName: (_) => ChangeNotifierProvider(
                 create: (context) => NewTaskController(
                   repository: context.read<TodosRepository>(),
                 ),

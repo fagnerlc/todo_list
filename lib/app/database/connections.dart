@@ -58,15 +58,16 @@ class Connection {
     var batch =
         db.batch(); // chamada sempre que a aplicação é criada pela primeira vez
     createV1(batch);
-    createV2(batch);
+    //createV2(batch);
     batch.commit();
   }
 
   FutureOr<void> _onUpgrade(Database db, int oldVersion, int newVersion) {
     var batch = db.batch();
     if (oldVersion < 2) {
-      upgradeV2(batch);
+      //upgradeV2(batch);
     }
     if (oldVersion < 3) {}
+    batch.commit();
   }
 }
