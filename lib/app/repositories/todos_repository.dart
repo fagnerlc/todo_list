@@ -31,11 +31,11 @@ class TodosRepository {
     );
   }
 
-  Future<void> deleteTask(TodoModel todo) async {
+  Future<void> deleteById(int id) async {
     var conn = await Connection().instance;
     await conn.rawDelete(
       'delete from todo where id = ?',
-      [todo.id],
+      [id],
     );
   }
 }

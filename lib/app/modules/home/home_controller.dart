@@ -54,13 +54,16 @@ class HomeController extends ChangeNotifier {
         findAllForWeek();
         break;
       case 2:
-        daySelectec = await showDatePicker(
+        var day = await showDatePicker(
           context: context,
           initialDate: daySelectec,
           firstDate: DateTime.now().subtract(Duration(days: 365 * 3)),
           lastDate: DateTime.now().add(Duration(days: 365 * 10)),
         );
-        findTodosBySelectedDay();
+        if (day != null) {
+          daySelectec = day;
+          findTodosBySelectedDay();
+        }
         break;
       default:
     }
@@ -86,12 +89,25 @@ class HomeController extends ChangeNotifier {
     var todos = await repository.findByPeriod(daySelectec, daySelectec);
     if (todos.isEmpty) {
       //criado para ter pelo menos um conteudo na lista se estiver vazia.
-      listTodos = {dateFormat.format(DateTime.now()): []};
+      listTodos = {dateFormat.format(daySelectec): []};
     } else {
       listTodos =
           groupBy(todos, (TodoModel todo) => dateFormat.format(todo.dataHora));
     }
 
     this.notifyListeners();
+  }
+
+  void update() {
+    if (selectedTab == 1) {
+      this.findAllForWeek();
+    } else if (selectedTab == 2) {
+      this.findTodosBySelectedDay();
+    }
+  }
+
+  void deleteTodo(TodoModel todo) async {
+    await repository.deleteById(todo.id);
+    this.update();
   }
 }
